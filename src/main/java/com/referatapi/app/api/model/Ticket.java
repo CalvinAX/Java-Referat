@@ -32,6 +32,16 @@ public class Ticket {
         this.priority = priority;
     }
 
+    public Ticket(String title, String description, int creator, Integer closedBy, int asignee, String status, String priority) {
+        this.title = title;
+        this.description = description;
+        this.creator = creator;
+        this.closedBy = closedBy;
+        this.asignee = asignee;
+        this.status = status;
+        this.priority = priority;
+    }
+
     public Ticket() {
 
     }

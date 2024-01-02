@@ -2,6 +2,9 @@ package com.referatapi.app.api.model;
 
 import jakarta.persistence.*;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,6 +19,13 @@ public class User {
 
     public User(int id, String name, int age, String email, String password) {
         this.id = id;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, int age, String email, String password) {
         this.name = name;
         this.age = age;
         this.email = email;
