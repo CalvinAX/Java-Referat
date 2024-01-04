@@ -39,4 +39,12 @@ public class TagController {
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/tag/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Tag> updateTag(@RequestBody Tag tag) {
+        Tag updatedTag = new Tag(tag.getId(), tag.getName(), tag.getColor());
+        tagRepository.save(updatedTag);
+
+        return new ResponseEntity<>(updatedTag, HttpStatus.ACCEPTED);
+    }
+
 }
