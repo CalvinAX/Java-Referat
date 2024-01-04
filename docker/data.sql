@@ -25,8 +25,8 @@ CREATE TABLE tickets(
 
 CREATE TABLE tags(
     id int NOT NULL AUTO_INCREMENT,
-    name String NOT NULL,
-    color String NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL,
 )
 
 INSERT INTO users(name, age, email, password) VALUES ("Admin", 1, "admin@email.com", "admin");
