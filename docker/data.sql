@@ -28,7 +28,7 @@ CREATE TABLE tags(
     name VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
-)
+);
 
 INSERT INTO users(name, age, email, password) VALUES ("Admin", 1, "admin@email.com", "admin");
 
