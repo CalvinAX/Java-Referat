@@ -1,0 +1,22 @@
+{
+    "sidebarHome": "Startseite",
+    "sidebarTickets": "Tickets",
+
+    "logout": "Abmelden",
+    "login": "Anmelden",
+    "language": "Sprache",
+
+    "ticket": {
+        "title": "Titel",
+        "description": "Beschreibung",
+        "creator": "Ersteller",
+        "closed_by": "Geschlosse durch",
+        "assignee": "Zugewiesen",
+        "status": "Status",
+        "priority": "Priorität",
+        "created_at": "Erstellt",
+        "deadline": "Frist"
+    },
+
+    "flag":"🇩🇪"
+}

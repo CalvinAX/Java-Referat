@@ -1,0 +1,47 @@
+/*------------Colors-------------*/
+
+$brand-color: #4f46e5;
+
+$bg-dark-100: #111827;
+$bg-dark-200: #202837;
+$bg-dark-300: #101012;
+$bg-dark-400: #0f172a;
+
+$btn-dark-100: #29333d;
+
+$btn-hover-100: #1f2937;
+
+$text-white-100: #fbfbfb;
+$text-white-200: #9ca3af;
+$text-white-300: #79808d;
+
+
+/*------------Font-------------*/
+
+// $font-family: 'Outfit', sans-serif;
+$font-family: 'Segoe UI', sans-serif;
+
+
+$border-color-100: #373e4b;
+
+/*------------Shadows-------------*/
+
+$filter-shadow-md: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+$box-shadow-sm: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+/*------------Sidebar-------------*/
+
+$sidebar-width: 240px;
+$sidebar-width-closed: 88px;
+$sidebar-inline-padding: 14px;
+
+/*------------ temp Space -------------*/
+$header-height: 56px;
+
+/*------------ Transitions -------------*/
+
+$trans-01: all 100ms ease;
+$trans-02: all 200ms ease;
+$trans-03: all 300ms ease;
+$trans-04: all 400ms ease;
+$trans-05: all 500ms ease;

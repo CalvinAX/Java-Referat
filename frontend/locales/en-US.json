@@ -1,0 +1,20 @@
+{
+    "sidebarHome": "Home",
+    "sidebarTickets": "Tickets",
+
+    "logout": "Sign out",
+    "login": "Sign in",
+    "language": "Language",
+    
+    "ticket": {
+        "title": "Title",
+        "description": "Description",
+        "creator": "Creator",
+        "closed_by": "Closed by",
+        "assignee": "Assignee",
+        "status": "Status",
+        "priority": "Priority",
+        "created_at": "Created at",
+        "deadline": "Deadline"
+    }
+}
