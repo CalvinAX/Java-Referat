@@ -51,4 +51,12 @@ public class TicketController {
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/ticket/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket) {
+        Ticket updatedTicket = new Ticket(ticket.getId(), ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAsignee(), ticket.getStatus(), ticket.getPriority());
+        ticketRepository.save(updatedTicket);
+
+        return new ResponseEntity<>(updatedTicket, HttpStatus.ACCEPTED);
+    }
+
 }
