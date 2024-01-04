@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -49,6 +50,14 @@ public class UserController {
         userRepository.save(toCreate);
 
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/user/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updatedUser = new User(user.getId(), user.getName(), user.getAge(), user.getEmail(), user.getPassword());
+        userRepository.save(updatedUser);
+
+        return new ResponseEntity<>(updatedUser, HttpStatus.ACCEPTED);
     }
 
 }
