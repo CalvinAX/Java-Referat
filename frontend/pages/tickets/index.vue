@@ -67,7 +67,8 @@
                 <span class="cell">{{ $t('ticket.created_at') }}</span>
                 <span class="cell">{{ $t('ticket.deadline') }}</span>
             </div>
-            <Ticket class="row" v-for="result in filteredResult" key="result.id" :result="result" />
+            <!-- <Ticket class="row" v-for="result in filteredResult" key="result.id" :result="result" /> -->
+            <Ticket class="row" v-for="result in responseData" :key="result.id" :result="result" />
         </div>
 
     </div>
@@ -89,66 +90,66 @@ const check = ref<CheckboxState>({
     'deadline': false,
 });
 
-const resultObject = ref([{
-    id: "1",
-    title: "Wichtige Fehlerbehebung",
-    description: "Ein kritischer Fehler muss behoben werden, der das System beeinträchtigt.",
-    creator: "Maria",
-    closed_by: null, // Noch nicht geschlossen
-    assignee: "Alex",
-    status: "Open",
-    priority: "High",
-    created_at: "02.01.2024",
-    deadline: "11. Feb. 10:26 Uhr"
-},
-{
-    id: "2",
-    title: "WIcht Funktionalität hinzufügen",
-    description: "Es soll eine neue Funktion implementiert werden, um die Benutzererfahrung zu verbessern.",
-    creator: "Chris",
-    closed_by: null, // Noch nicht geschlossen
-    assignee: "Sarah",
-    status: "In Progress",
-    priority: "Medium",
-    created_at: "02.01.2024",
-    deadline: "11. Feb. 10:26 Uhr"
-},
-{
-    id: "3",
-    title: "Benutzeroberfläche optimieren",
-    description: "Die Benutzeroberfläche muss für eine bessere Benutzerfreundlichkeit optimiert werden.",
-    creator: "Alice",
-    closed_by: null, // Noch nicht geschlossen
-    assignee: "Bob",
-    status: "Open",
-    priority: "Medium",
-    created_at: "02.01.2024",
-    deadline: "11. Feb. 10:26 Uhr"
-},
-{
-    id: "4",
-    title: "Sicherheitspatch anwenden",
-    description: "Es muss ein Sicherheitspatch angewendet werden, um bekannte Schwachstellen zu beheben.",
-    creator: "David",
-    closed_by: null, // Noch nicht geschlossen
-    assignee: "Eva",
-    status: "In Progress",
-    priority: "High",
-    created_at: "02.01.2024",
-    deadline: "11. Feb. 10:26 Uhr"
-},
-{
-    id: "5",
-    title: "Dokumentation aktualisieren",
-    description: "Die Dokumentation muss auf den neuesten Stand gebracht werden, um Änderungen zu reflektieren.",
-    creator: "Grace",
-    closed_by: "John",
-    assignee: "John",
-    status: "Closed",
-    priority: "Low",
-    created_at: "02.01.2024",
-    deadline: "11. Feb. 10:26 Uhr"
-}])
+// const resultObject = ref([{
+//     id: "1",
+//     title: "Wichtige Fehlerbehebung",
+//     description: "Ein kritischer Fehler muss behoben werden, der das System beeinträchtigt.",
+//     creator: "Maria",
+//     closed_by: null, // Noch nicht geschlossen
+//     assignee: "Alex",
+//     status: "Open",
+//     priority: "High",
+//     created_at: "02.01.2024",
+//     deadline: "11. Feb. 10:26 Uhr"
+// },
+// {
+//     id: "2",
+//     title: "WIcht Funktionalität hinzufügen",
+//     description: "Es soll eine neue Funktion implementiert werden, um die Benutzererfahrung zu verbessern.",
+//     creator: "Chris",
+//     closed_by: null, // Noch nicht geschlossen
+//     assignee: "Sarah",
+//     status: "In Progress",
+//     priority: "Medium",
+//     created_at: "02.01.2024",
+//     deadline: "11. Feb. 10:26 Uhr"
+// },
+// {
+//     id: "3",
+//     title: "Benutzeroberfläche optimieren",
+//     description: "Die Benutzeroberfläche muss für eine bessere Benutzerfreundlichkeit optimiert werden.",
+//     creator: "Alice",
+//     closed_by: null, // Noch nicht geschlossen
+//     assignee: "Bob",
+//     status: "Open",
+//     priority: "Medium",
+//     created_at: "02.01.2024",
+//     deadline: "11. Feb. 10:26 Uhr"
+// },
+// {
+//     id: "4",
+//     title: "Sicherheitspatch anwenden",
+//     description: "Es muss ein Sicherheitspatch angewendet werden, um bekannte Schwachstellen zu beheben.",
+//     creator: "David",
+//     closed_by: null, // Noch nicht geschlossen
+//     assignee: "Eva",
+//     status: "In Progress",
+//     priority: "High",
+//     created_at: "02.01.2024",
+//     deadline: "11. Feb. 10:26 Uhr"
+// },
+// {
+//     id: "5",
+//     title: "Dokumentation aktualisieren",
+//     description: "Die Dokumentation muss auf den neuesten Stand gebracht werden, um Änderungen zu reflektieren.",
+//     creator: "Grace",
+//     closed_by: "John",
+//     assignee: "John",
+//     status: "Closed",
+//     priority: "Low",
+//     created_at: "02.01.2024",
+//     deadline: "11. Feb. 10:26 Uhr"
+// }])
 
 interface Task {
     id: string;
@@ -166,20 +167,67 @@ interface Task {
 // const search = ref(null)
 const search = ref<string | null>(null);
 
-const filterByTitle = (array: Task[], searchTerm: string | null) => {
-    if (!searchTerm) return array;
-    return array.filter(item => item.title.toLowerCase().startsWith(searchTerm.toLowerCase()));
-};
+// const filterByTitle = (array: Task[], searchTerm: string | null) => {
+//     if (!searchTerm) return array;
+//     return array.filter(item => item.title.toLowerCase().startsWith(searchTerm.toLowerCase()));
+// };
 
 // const filteredResult = ref<Task[]>([])
-const filteredResult = ref(resultObject)
-watch(search, () => {
-    if (search.value !== null) {
-        filteredResult.value = filterByTitle(resultObject.value, search.value);
+// const filteredResult = ref(resultObject)
+// watch(search, () => {
+//     if (search.value !== null) {
+//         filteredResult.value = filterByTitle(resultObject.value, search.value);
+//     }
+// });
+
+// const now = computed(() => filteredResult.value)
+const responseData = ref()
+onMounted(async () => {
+    try {
+        const response = await fetch('/api/tickets')
+        if (!response.ok) {
+            throw new Error('No available data');
+        }
+        const data = await response.json();
+        responseData.value = data;
+    } catch (error: any) {
+        console.error('Error fetching data:', error.message);
     }
 });
 
-// const now = computed(() => filteredResult.value)
+watch(search, async () => {
+    console.log(search.value);
+    
+    if (search.value !== null && search.value !== '' && search.value !== undefined) {
+        // onMounted(async () => {
+        try {
+            console.log('before first fetch')
+            const response = await fetch(`/api/tickets/filter-by-title/${search.value}`)
+            console.log('after first fetch')
+            if (!response.ok) {
+                throw new Error('No available data');
+            }
+            const data = await response.json();
+            responseData.value = data;
+        } catch (error: any) {
+            console.error('Error fetching data:', error.message);
+        }
+        // });
+    } else {
+        try {
+            const response = await fetch('/api/tickets')
+            if (!response.ok) {
+                throw new Error('No available data');
+            }
+            const data = await response.json();
+            responseData.value = data;
+        } catch (error: any) {
+            console.error('Error fetching data:', error.message);
+        }
+    }
+});
+
+
 
 </script>
 

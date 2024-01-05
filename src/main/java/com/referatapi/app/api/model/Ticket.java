@@ -2,8 +2,6 @@ package com.referatapi.app.api.model;
 
 import jakarta.persistence.*;
 
-import java.util.Optional;
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
@@ -16,30 +14,38 @@ public class Ticket {
     private int creator; // Maybe User instead of int
     @Column(name = "closed_by")
     private Integer closedBy; // Maybe User instead of int
-    private int asignee; // Maybe User instead of int
+    private int assignee; // Maybe User instead of int
     private String status;
     private String priority;
+    @Column(name = "created_at")
+    private String createdAt; // time
+    private String deadline; // time
+
     //private Tag tags;
 
-    public Ticket(int id, String title, String description, int creator, Integer closedBy, int asignee, String status, String priority) {
+    public Ticket(int id, String title, String description, int creator, Integer closedBy, int asignee, String status, String priority, String createdAt, String deadline) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.creator = creator;
         this.closedBy = closedBy;
-        this.asignee = asignee;
+        this.assignee = asignee;
         this.status = status;
         this.priority = priority;
+        this.createdAt = createdAt;
+        this.deadline = deadline;
     }
 
-    public Ticket(String title, String description, int creator, Integer closedBy, int asignee, String status, String priority) {
+    public Ticket(String title, String description, int creator, Integer closedBy, int asignee, String status, String priority, String createdAt, String deadline) {
         this.title = title;
         this.description = description;
         this.creator = creator;
         this.closedBy = closedBy;
-        this.asignee = asignee;
+        this.assignee = asignee;
         this.status = status;
         this.priority = priority;
+        this.createdAt = createdAt;
+        this.deadline = deadline;
     }
 
     public Ticket() {
@@ -86,12 +92,12 @@ public class Ticket {
         this.closedBy = closedBy;
     }
 
-    public int getAsignee() {
-        return asignee;
+    public int getAssignee() {
+        return assignee;
     }
 
-    public void setAsignee(int asignee) {
-        this.asignee = asignee;
+    public void setAssignee(int asignee) {
+        this.assignee = asignee;
     }
 
     public String getStatus() {
@@ -108,6 +114,22 @@ public class Ticket {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 
 }

@@ -1,6 +1,9 @@
 <template>
     <div class="ticket-comp">
-        <span class="cell">{{ result.title }}</span>
+        <!-- <NuxtLink :to="`/tickets/${result.id}`"> -->
+        <NuxtLink :to="{ path: `/tickets/${result.id}` }">
+            <span class="cell">{{ result.title }}</span>
+        </NuxtLink>
         <span class="cell">{{ result.creator }}</span>
         <span class="cell">{{ result.assignee }}</span>
         <span class="cell" :class="{
@@ -9,7 +12,8 @@
             closed: result.status === 'Closed'
         }">{{ result.status }}</span>
         <span class="cell" :class="`${result.priority}`">{{ result.priority }}</span>
-        <span class="cell">{{ result.created_at }}</span>
+        <!-- <span class="cell">{{ result.created_at }}</span> -->
+        <span class="cell">{{ result.createdAt }}</span>
         <span class="cell">{{ result.deadline }}</span>
     </div>
 </template>
@@ -32,6 +36,7 @@ const result = ref(props.result);
             color: #FF6347;
             color: #FF5757;
         }
+
         &.Medium {
             color: #87CEEB;
             color: #FFA500;
@@ -39,19 +44,22 @@ const result = ref(props.result);
             color: orange;
             color: #EFB465;
         }
+
         &.Low {
             color: #87CEEB;
             color: #3FCD45;
             color: #90ee90;
         }
 
-        &.open{
+        &.open {
             color: #87CEEB;
         }
-        &.inProgress{
+
+        &.inProgress {
             color: #90ee90;
         }
-        &.closed{
+
+        &.closed {
             color: #FF5757;
         }
     }

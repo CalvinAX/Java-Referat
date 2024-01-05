@@ -17,9 +17,11 @@ CREATE TABLE tickets(
     description VARCHAR(255),
     creator int NOT NULL,
     closed_by int,
-    asignee int NOT NULL,
+    assignee int NOT NULL,
     status VARCHAR(255) NOT NULL,
     priority VARCHAR(255) NOT NULL,
+    created_at VARCHAR(255) NOT NULL,
+    deadline VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -32,4 +34,4 @@ CREATE TABLE tags(
 
 INSERT INTO users(name, age, email, password) VALUES ("Admin", 1, "admin@email.com", "admin");
 
-INSERT INTO tickets(title, description, creator, asignee, status, priority) VALUES ("Test Ticket", "This is a default test ticket", 1, 1, "OPEN", "HIGH");
+INSERT INTO tickets(title, description, creator, assignee, status, priority, created_at, deadline) VALUES ("Test Ticket", "This is a default test ticket", 1, 1, "OPEN", "HIGH", "05.01.2024", "11.01.2024");

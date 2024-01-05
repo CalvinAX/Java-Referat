@@ -2,7 +2,6 @@ package com.referatapi.app.api.controller;
 
 import com.referatapi.app.api.model.Ticket;
 import com.referatapi.app.api.repository.TicketRepository;
-import com.referatapi.app.api.repository.UserRepository;
 import com.referatapi.app.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TicketController {
@@ -30,6 +28,12 @@ public class TicketController {
         return ticketRepository.findAll();
     }
 
+    @GetMapping("/tickets/filter-by-title")
+    public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
+        List<Ticket> filteredTickets = ticketRepository.findByTitleStartingWith(title);
+        return ResponseEntity.ok(filteredTickets);
+    }
+
     /*@GetMapping("/ticket")
     public Ticket getSingleTicket(@RequestParam Integer id) {
         Optional<Ticket> ticket = ticketService.getSingleTicket(id);
@@ -46,14 +50,14 @@ public class TicketController {
 
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
-        Ticket toCreate = new Ticket(ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAsignee(), ticket.getStatus(), ticket.getPriority());
+        Ticket toCreate = new Ticket(ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAssignee(), ticket.getStatus(), ticket.getPriority(), ticket.getCreatedAt(), ticket.getDeadline());
         ticketRepository.save(toCreate);
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/ticket/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket) {
-        Ticket updatedTicket = new Ticket(ticket.getId(), ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAsignee(), ticket.getStatus(), ticket.getPriority());
+        Ticket updatedTicket = new Ticket(ticket.getId(), ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAssignee(), ticket.getStatus(), ticket.getPriority(), ticket.getCreatedAt(), ticket.getDeadline());
         ticketRepository.save(updatedTicket);
 
         return new ResponseEntity<>(updatedTicket, HttpStatus.ACCEPTED);

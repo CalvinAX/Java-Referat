@@ -17,9 +17,9 @@ public class TicketService {
     public TicketService() {
         ticketList = new ArrayList<>();
 
-        Ticket ticket1 = new Ticket(1, "Test", "Test Ticket", 1, null, 1, "Open", "High");
-        Ticket ticket2 = new Ticket(1, "Test2", "Test Ticket 2", 1, null, 1, "In Progress", "Medium");
-        Ticket ticket3 = new Ticket(1, "Test3", "Test Ticket 3", 1, null, 1, "Testing", "Low");
+        Ticket ticket1 = new Ticket(1, "Test", "Test Ticket", 1, null, 1, "Open", "High", "05.01.2024", "11.01.2024");
+        Ticket ticket2 = new Ticket(1, "Test2", "Test Ticket 2", 1, null, 1, "In Progress", "Medium", "05.01.2024", "11.01.2024");
+        Ticket ticket3 = new Ticket(1, "Test3", "Test Ticket 3", 1, null, 1, "Testing", "Low", "05.01.2024", "11.01.2024");
 
         ticketList.addAll(Arrays.asList(ticket1, ticket2, ticket3));
     }
