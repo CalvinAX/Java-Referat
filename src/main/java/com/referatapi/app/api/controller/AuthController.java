@@ -14,27 +14,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.referatapi.app.api.model.User;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class AuthController {
-/*
-    private TagService tagService;
-    private TagRepository tagRepository;
+
+    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     public AuthController(UserService userService, UserRepository userRepository) {
-        // this.userService = userService;
-        // this.userRepository = userRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping(value = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Ticket> createTicket(@RequestBody User user) {
-        userRepository.findById(user.email).get();
-        Ticket toCreate = new Ticket(ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAssignee(), ticket.getStatus(), ticket.getPriority(), ticket.getCreatedAt(), ticket.getDeadline());
-        ticketRepository.save(toCreate);
-        return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
+    public ResponseEntity<String> createTicket(@RequestBody User reqUser) {
+        User dbUser = userRepository.findByEmail(reqUser.getEmail());
+
+        // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+        // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+       // String hashedPassword = passwordEncoder.encode(plainPassword);
+        int hashedPassword = dbUser.getPassword().hashCode();
+        if(Integer.toString(hashedPassword).equals(reqUser.getPassword())){
+            return new ResponseEntity<>("Successfuly logged in!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Access denied! Wrong email or password." + hashedPassword, HttpStatus.BAD_REQUEST);
     }
-*/
+
 }
