@@ -137,7 +137,7 @@ const changeBorderColorPassword = (focus) => {
         text-decoration: none;
         transition: background 0.1s ease-out 0s, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 0s;
         white-space: nowrap;
-        // background: $solid-color; // #0052CC;
+        background: #0052CC;
         color: #FFFFFF !important;
         cursor: pointer;
         height: 2.28571em;
@@ -217,7 +217,7 @@ const changeBorderColorPassword = (focus) => {
 
         form {
             .focused {
-                // border-color: $solid-color; // #2684ff;
+                border-color: #2684ff;
             }
 
             div {
