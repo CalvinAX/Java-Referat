@@ -196,14 +196,10 @@ onMounted(async () => {
 });
 
 watch(search, async () => {
-    console.log(search.value);
-    
     if (search.value !== null && search.value !== '' && search.value !== undefined) {
         // onMounted(async () => {
         try {
-            console.log('before first fetch')
             const response = await fetch(`/api/tickets/filter-by-title/${search.value}`)
-            console.log('after first fetch')
             if (!response.ok) {
                 throw new Error('No available data');
             }
@@ -227,8 +223,6 @@ watch(search, async () => {
     }
 });
 
-
-
 </script>
 
 <style lang="scss">
@@ -239,8 +233,7 @@ watch(search, async () => {
     padding: 20px $padding-inline;
 
     min-height: 100%;
-    background-color: #1D2125;
-    color: #B6C2CF;
+
     font-size: 14px;
     line-height: 19.6px;
 
