@@ -73,26 +73,26 @@ const { status, signIn, signOut } = useAuth();
 
 const loggedIn = computed(() => status.value === 'authenticated');
 
-// const handleSignOut = async () => {
-//     try {
-//         const response = await fetch('/api/logout', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//         });
-//         console.log('######################test');
-//         if (response.ok) {
-//             console.log('Logout successful');
-//         } else {
-//             console.error('Logout failed');
-//         }
-//     } catch (error) {
-//         console.error('Error during logout:', error);
-//     }
+const handleSignOut = async () => {
+    // try {
+    //     const response = await fetch('/api/logout', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
+    //     console.log('######################test');
+    //     if (response.ok) {
+    //         console.log('Logout successful');
+    //     } else {
+    //         console.error('Logout failed');
+    //     }
+    // } catch (error) {
+    //     console.error('Error during logout:', error);
+    // }
 
-//     await signOut();
-// }
+    await signOut();
+}
 
 // const handleSignIn = async () => {
 //     await signIn('credentials', { email, password, callbackUrl: '/' })
