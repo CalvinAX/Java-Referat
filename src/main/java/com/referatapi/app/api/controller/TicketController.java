@@ -49,7 +49,9 @@ public class TicketController {
     }*/
 
     @GetMapping("/ticket/{id}")
-    public Ticket getSingleTicket(@PathVariable("id") Integer id) {return ticketRepository.findById(id).get();}
+    public Ticket getSingleTicket(@PathVariable("id") Integer id) {
+        return ticketRepository.findById(id).get();
+    }
 
     @GetMapping("/tickets/delete/{id}")
     public void deleteTickets(@PathVariable("id") Integer id) {
