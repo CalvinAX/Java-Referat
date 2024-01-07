@@ -1,7 +1,9 @@
 package com.referatapi.app.api.controller;
 
 import com.referatapi.app.api.model.Ticket;
+import com.referatapi.app.api.model.TicketsTags;
 import com.referatapi.app.api.repository.TicketRepository;
+import com.referatapi.app.api.repository.TicketsTagsRepository;
 import com.referatapi.app.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,21 +12,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class TicketController {
 
     private TicketService ticketService;
     private TicketRepository ticketRepository;
+    private TicketsTagsRepository ticketsTagsRepository;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketRepository ticketRepository) {
+    public TicketController(TicketService ticketService, TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository) {
         this.ticketService = ticketService;
         this.ticketRepository = ticketRepository;
+        this.ticketsTagsRepository = ticketsTagsRepository;
     }
 
     @GetMapping("/tickets")
     public List<Ticket> getTickets() {
+
         return ticketRepository.findAll();
     }
 
@@ -46,6 +52,11 @@ public class TicketController {
     @GetMapping("/ticket/{id}")
     public Ticket getSingleTicket(@PathVariable("id") Integer id) {
         return ticketRepository.findById(id).get();
+    }
+
+    @GetMapping("/ticket/test/{id}")
+    public Optional<TicketsTags> getSingleTicketTag(@PathVariable("id") Integer id) {
+        return ticketsTagsRepository.findById(id);
     }
 
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
