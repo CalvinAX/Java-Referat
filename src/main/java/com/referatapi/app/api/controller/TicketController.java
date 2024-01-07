@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TicketController {
@@ -55,8 +54,8 @@ public class TicketController {
     }
 
     @GetMapping("/ticket/test/{id}")
-    public Optional<TicketsTags> getSingleTicketTag(@PathVariable("id") Integer id) {
-        return ticketsTagsRepository.findById(id);
+    public List<TicketsTags> getSingleTicketTag(@PathVariable("id") Integer id) {
+        return ticketsTagsRepository.findAllByTicketId(id);
     }
 
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
