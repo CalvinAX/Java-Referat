@@ -1,7 +1,9 @@
 package com.referatapi.app.api.controller;
 
 import com.referatapi.app.api.model.Ticket;
+import com.referatapi.app.api.model.TicketsTags;
 import com.referatapi.app.api.repository.TicketRepository;
+import com.referatapi.app.api.repository.TicketsTagsRepository;
 import com.referatapi.app.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +18,20 @@ public class TicketController {
 
     private TicketService ticketService;
     private TicketRepository ticketRepository;
+    private TicketsTagsRepository ticketsTagsRepository;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketRepository ticketRepository) {
+    public TicketController(TicketService ticketService, TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository) {
         this.ticketService = ticketService;
         this.ticketRepository = ticketRepository;
+        this.ticketsTagsRepository = ticketsTagsRepository;
     }
 
     @GetMapping("/tickets")
-    public List<Ticket> getTickets() {return ticketRepository.findAll();}
+    public List<Ticket> getTickets() {
+
+        return ticketRepository.findAll();
+    }
 
     @GetMapping("/tickets/filter-by-title")
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
@@ -47,6 +54,11 @@ public class TicketController {
     @GetMapping("/tickets/delete/{id}")
     public void deleteTickets(@PathVariable("id") Integer id) {
         ticketRepository.deleteById(id);
+    }
+
+    @GetMapping("/ticket/test/{id}")
+    public List<TicketsTags> getSingleTicketTag(@PathVariable("id") Integer id) {
+        return ticketsTagsRepository.findAllByTicketId(id);
     }
 
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
