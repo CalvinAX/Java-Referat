@@ -1,25 +1,27 @@
 <template>
     <div class="ticekt-detail-view details-view">
-        {{ updatedValues }}
-        {{ submit }}
-        <div>
+        <div class="key">
+            <!-- <span>{{ result.title }}</span> -->
+            <span class="inp title"><input v-model="title" type="text" :placeholder="result.title"></span>
+        </div>
+        <div class="detail-value">
             <div>Description</div>
             <div class="inp"><input v-model="description" type="text" :placeholder="result.description"></div>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Creator</div>
             <div>{{ result.creator }}</div>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Closed by</div>
             <div>{{ result.closedBy ? result.closedBy : "not closed" }}</div>
 
         </div>
-        <div>
+        <div class="detail-value">
             <div>Assignee</div>
             <div class="inp"><input v-model="assignee" type="text" :placeholder="result.assignee"></div>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Status</div>
             <!-- <div class="cell" :class="{
                 open: result.status === 'Open',
@@ -34,7 +36,7 @@
                 </select>
             </span>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Priority</div>
             <!-- <div class="cell" :class="`${result.priority}`">{{ result.priority }}</div> -->
             <!-- <label for="cars">Wähle ein Auto:</label> -->
@@ -46,11 +48,11 @@
                 </select>
             </span>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Created at</div>
             <div>{{ result.createdAt }}</div>
         </div>
-        <div>
+        <div class="detail-value">
             <div>Deadline</div>
             <div class="inp"><input v-model="deadline" type="text" :placeholder="result.deadline"></div>
         </div>
@@ -65,8 +67,6 @@ const submit = toRef(props, 'submit');
 
 const emit = defineEmits(['updated'])
 
-const responseData = ref()
-
 // v-model
 const title = ref<string | null>(result.value.title);
 const description = ref<string | null>(result.value.description);
@@ -80,8 +80,9 @@ const deadline = ref<string | null>(result.value.deadline);
 
 const updatedValues = ref({})
 
-if (responseData) {
+if (result.value) {
     updatedValues.value = {
+        id: result.value.id,
         title: title.value,
         description: description.value,
         creator: creator.value,
@@ -93,30 +94,49 @@ if (responseData) {
         deadline: deadline.value,
     }
 }
-
-// onMounted(async () => {
-
-// });
+const responseData = ref()
 watch(submit, async () => {
     if (submit.value) {
-        try {
-            await fetch(`/api/tickets/update`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedValues.value)
-            });
-
-            emit('updated', updatedValues.value)
-
-        } catch (error: any) {
-            console.error('Error fetching data:', error.message);
+        updatedValues.value = {
+            id: result.value.id,
+            title: title.value,
+            description: description.value,
+            creator: creator.value,
+            closedBy: closedBy.value,
+            assignee: assignee.value,
+            status: status.value,
+            priority: priority.value,
+            createdAt: createdAt.value,
+            deadline: deadline.value,
         }
+
+        console.log('inside submit');
+        // try {
+        // emit('updated');
+
+        const resp = await fetch(`/api/tickets/update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedValues.value)
+        });
+
+        const data = await resp.json();
+        responseData.value = data;
+
+
+
+        // } catch (error: any) {
+        //     console.error('Error fetching data:', error.message);
+        // }
     }
 });
-
-
+watch(responseData, async () => {
+    console.log("inside watch")
+    console.log(responseData.value)
+    emit('updated', responseData.value);
+});
 </script>
 
 <style lang="scss">
@@ -127,7 +147,7 @@ watch(submit, async () => {
     flex-direction: column;
     gap: 20px;
 
-    &>div {
+    .detail-value {
         // display: flex;
         // gap: 20px;
         // flex-basis: 20;
@@ -161,6 +181,15 @@ watch(submit, async () => {
             max-width: 100%;
         }
 
+    }
+
+    .key {
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: 400;
+
+        margin-bottom: 40px;
+        // margin-left: 30px;
     }
 
     .cell {
@@ -225,6 +254,7 @@ watch(submit, async () => {
             // font-size: 15px;
             color: inherit;
             border-radius: inherit;
+            // color: rgb(92, 92, 92);
         }
 
         input::placeholder {
@@ -237,6 +267,18 @@ watch(submit, async () => {
             // box-shadow: 0 0 3px 0 rgb(15, 171, 220);
             // border-color: #1183d6;
             outline: none;
+        }
+
+        &.title {
+            input {
+                // height: 50px;
+                font-size: 24px;
+                line-height: 28px;
+                font-weight: 400;
+                // color: lightgreen;
+                // margin-bottom: 40px;
+            }
+
         }
     }
 

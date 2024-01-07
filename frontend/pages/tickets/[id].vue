@@ -19,7 +19,7 @@ onMounted(async () => {
         
         responseData.value = data;
     } catch (error: any) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching ddata:', error.message);
     }
 });
 </script>

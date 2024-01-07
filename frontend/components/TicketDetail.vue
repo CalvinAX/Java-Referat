@@ -2,8 +2,6 @@
     <div class="cmdb-key-wrapper">
         <header></header>
         <main>
-            blabla
-            {{ updatedValue }}
             <form @submit.prevent="handleSubmit()">
                 <div class="object-view">
                     <NuxtLink :to="{ path: '/tickets' }">
@@ -16,18 +14,17 @@
                         Zurück zur Listenansicht
                     </NuxtLink>
                     <div class="id">JR-{{ result.id }}</div>
-                    <div class="key">
-                        <span>{{ result.title }}</span>
-                    </div>
                     <div class="details-view-wrapper">
                         <TicketDetailView v-if="!edit" :result="result" />
-                        <TicketDetailUpdate v-else :result="result" :submit="submit"
-                            @updated="(updateData) => updatedValue = updateData" />
+                        <TicketDetailUpdate v-else :result="result" :submit="submit" @updated="handleUpdate" />
+                        <!-- updated = true -->
                     </div>
                     <div class="edit-save">
-                        <span v-if="!edit" @click="edit = true; submit = false">Edit</span>
-                        <span v-if="edit" @click="edit = false"><button type="submit"
-                                @click="handleSubmit()">Save</button></span>
+                        <span v-if="!edit" @click="edit = true; submit = false; updated = false">Edit</span>
+                        <span v-if="edit"><button type="submit" @click="handleSubmit()">Save</button></span>
+                    </div>
+                    <div class="delete">
+                        <span @click="handleDelete()">Delete</span>
                     </div>
                 </div>
             </form>
@@ -52,13 +49,48 @@ const updated = ref(false)
 const updatedValue = ref({})
 
 const handleUpdate = (updateData: any) => {
-    updatedValue.value = updateData
+    // updatedValue.value = updateData
     updated.value = true
+    result.value = updateData
 }
+
+watch(updated, async () => {
+    if (updated) {
+        edit.value = false
+        try {
+            const response = await fetch(`/api/tickets/${result.value.id}`)
+            if (!response.ok) {
+                throw new Error('No available data');
+            }
+            const data = await response.json();
+
+            result.value = data;
+        } catch (error: any) {
+            console.error('Error fetching data:', error.message);
+        }
+    }
+})
 
 const handleSubmit = () => {
     submit.value = true;
 };
+
+const router = useRouter()
+const handleDelete = async() => {
+    try {
+        const response = await fetch(`/api/tickets/delete/${result.value.id}`)
+        if (!response.ok) {
+            throw new Error('No available data');
+        }
+        const data = await response.json();
+
+        result.value = data;
+    } catch (error: any) {
+        console.error('Error fetching data:', error.message);
+    }
+    router.push("/tickets")
+};
+
 
 // if (!submit) {
 //     try {
@@ -196,15 +228,6 @@ const handleSubmit = () => {
                 margin-left: 30px;
             }
 
-            .key {
-                font-size: 24px;
-                line-height: 28px;
-                font-weight: 400;
-
-                margin-bottom: 40px;
-                margin-left: 30px;
-            }
-
             .details-view-wrapper {
                 margin-left: 30px;
             }
@@ -219,6 +242,34 @@ const handleSubmit = () => {
 
                 span {
                     color: rgb(32, 167, 212);
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    button {
+                        margin: 0;
+                        padding: 0;
+                        border: none;
+                        background: none;
+                        font: inherit;
+                        color: inherit;
+                        cursor: pointer;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            .delete {
+                margin-top: 25px;
+                margin-left: 30px;
+
+                span {
+                    color: #FF5757;
                     cursor: pointer;
 
                     &:hover {

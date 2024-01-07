@@ -1,14 +1,13 @@
 
 export default defineEventHandler(async (event) => {
 
-    const body = await readBody(event)
+    const id = getRouterParam(event, 'id')
     try {
-        const response = await fetch(`http://localhost:8080/ticket/update`, {
-            method: 'POST',
+        const response = await fetch(`http://localhost:8080/tickets/delete/${id}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
+            }
         });
 
         if (!response.ok) {

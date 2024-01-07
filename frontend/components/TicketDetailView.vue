@@ -2,24 +2,27 @@
     <div class="ticekt-detail-view">
         <form>
             <div class="details-view">
-                <div>
+                <div class="key">
+                    <span>{{ result.title }}</span>
+                </div>
+                <div class="detail-value">
                     <div>Description</div>
                     <div>{{ result.description }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Creator</div>
                     <div>{{ result.creator }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Closed by</div>
                     <div>{{ result.closedBy ? result.closedBy : "not closed" }}</div>
 
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Assignee</div>
                     <div>{{ result.assignee }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Status</div>
                     <div class="cell" :class="{
                         open: result.status === 'Open',
@@ -27,15 +30,15 @@
                         closed: result.status === 'Closed'
                     }">{{ result.status }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Priority</div>
                     <div class="cell" :class="`${result.priority}`">{{ result.priority }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Created at</div>
                     <div>{{ result.createdAt }}</div>
                 </div>
-                <div>
+                <div class="detail-value">
                     <div>Deadline</div>
                     <div>{{ result.deadline }}</div>
                 </div>
@@ -56,7 +59,7 @@ const result = ref(props.result);
         flex-direction: column;
         gap: 20px;
 
-        &>div {
+        .detail-value {
             // display: flex;
             // gap: 20px;
             // flex-basis: 20;
@@ -91,6 +94,15 @@ const result = ref(props.result);
             }
 
         }
+
+        .key {
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: 400;
+
+        margin-bottom: 40px;
+        // margin-left: 30px;
+    }
 
         .cell {
             &.High {
