@@ -24,9 +24,7 @@ public class TicketController {
     }
 
     @GetMapping("/tickets")
-    public List<Ticket> getTickets() {
-        return ticketRepository.findAll();
-    }
+    public List<Ticket> getTickets() {return ticketRepository.findAll();}
 
     @GetMapping("/tickets/filter-by-title")
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
@@ -44,8 +42,11 @@ public class TicketController {
     }*/
 
     @GetMapping("/ticket/{id}")
-    public Ticket getSingleTicket(@PathVariable("id") Integer id) {
-        return ticketRepository.findById(id).get();
+    public Ticket getSingleTicket(@PathVariable("id") Integer id) {return ticketRepository.findById(id).get();}
+
+    @GetMapping("/tickets/delete/{id}")
+    public void deleteTickets(@PathVariable("id") Integer id) {
+        ticketRepository.deleteById(id);
     }
 
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
