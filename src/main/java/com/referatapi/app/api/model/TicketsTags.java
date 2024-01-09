@@ -11,7 +11,6 @@ public class TicketsTags {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id")
     private Ticket ticket_id;
 
     @ManyToOne
