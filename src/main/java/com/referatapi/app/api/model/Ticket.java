@@ -26,8 +26,6 @@ public class Ticket {
     private String createdAt; // time
     private String deadline; // time
 
-    //private Tag tags;
-
     public Ticket(int id, String title, String description, User creator, User closedBy, User assignee, String status, String priority, String createdAt, String deadline) {
         this.id = id;
         this.title = title;
