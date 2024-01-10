@@ -31,17 +31,21 @@ public class AuthController {
     }
 
     @PostMapping(value = "/auth/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createTicket(@RequestBody User reqUser) {
+    public ResponseEntity<User> createTicket(@RequestBody User reqUser) {
         User dbUser = userRepository.findByEmail(reqUser.getEmail());
-
+        User user;
         // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
        // String hashedPassword = passwordEncoder.encode(plainPassword);
-        int hashedPassword = dbUser.getPassword().hashCode();
-        if(Integer.toString(hashedPassword).equals(reqUser.getPassword())){
-            return new ResponseEntity<>("Successfuly logged in!", HttpStatus.OK);
+       // int hashedPassword = dbUser.getPassword().hashCode();
+        // Integer.toString(hashedPassword)
+
+        if(dbUser.getPassword().equals(reqUser.getPassword())){
+            user = new User(dbUser.getId(), dbUser.getName());
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        return new ResponseEntity<>("Access denied! Wrong email or password." + hashedPassword, HttpStatus.BAD_REQUEST);
+        user = new User(dbUser.getId(), dbUser.getName());
+        return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
     }
 
 }

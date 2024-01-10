@@ -4,12 +4,16 @@ import com.referatapi.app.api.model.Ticket;
 import com.referatapi.app.api.model.TicketsTags;
 import com.referatapi.app.api.repository.TicketRepository;
 import com.referatapi.app.api.repository.TicketsTagsRepository;
+import com.referatapi.app.api.repository.UserRepository;
 import com.referatapi.app.service.TicketService;
+import com.referatapi.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.referatapi.app.api.model.User;
+
 
 import java.util.List;
 
@@ -21,21 +25,54 @@ public class TicketController {
     private TicketsTagsRepository ticketsTagsRepository;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository) {
+    public TicketController(TicketService ticketService, TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository, UserService userService, UserRepository userRepository) {
         this.ticketService = ticketService;
         this.ticketRepository = ticketRepository;
         this.ticketsTagsRepository = ticketsTagsRepository;
     }
 
     @GetMapping("/tickets")
-    public List<Ticket> getTickets() {
+    public ResponseEntity<List<Ticket>> getTickets() {
+        List<Ticket> ticketsFromDB = ticketRepository.findAll();
+        for (Ticket ticket : ticketsFromDB) {
+            if (ticket.getClosedBy() != null) {
+                User user = new User(ticket.getClosedBy().getId(), ticket.getClosedBy().getName());
+                ticket.setClosedBy(user);
+            }
+            if (ticket.getCreator() != null) {
+                User user = new User(ticket.getCreator().getId(), ticket.getCreator().getName());
+                ticket.setCreator(user);
+            }
+            if (ticket.getAssignee() != null) {
+                User user = new User(ticket.getAssignee().getId(), ticket.getAssignee().getName());
+                ticket.setAssignee(user);
+            }
+        }
 
-        return ticketRepository.findAll();
+        // System.out.println("User: " +  user);
+        // System.out.println("Ticket: " +  ticketsFromDB);
+        return new ResponseEntity<>(ticketsFromDB, HttpStatus.OK);
     }
 
     @GetMapping("/tickets/filter-by-title")
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
         List<Ticket> filteredTickets = ticketRepository.findByTitleStartingWith(title);
+
+        for (Ticket ticket : filteredTickets) {
+            if (ticket.getClosedBy() != null) {
+                User user = new User(ticket.getClosedBy().getId(), ticket.getClosedBy().getName());
+                ticket.setClosedBy(user);
+            }
+            if (ticket.getCreator() != null) {
+                User user = new User(ticket.getCreator().getId(), ticket.getCreator().getName());
+                ticket.setCreator(user);
+            }
+            if (ticket.getAssignee() != null) {
+                User user = new User(ticket.getAssignee().getId(), ticket.getAssignee().getName());
+                ticket.setAssignee(user);
+            }
+        }
+
         return ResponseEntity.ok(filteredTickets);
     }
 
@@ -49,8 +86,22 @@ public class TicketController {
     }*/
 
     @GetMapping("/ticket/{id}")
-    public Ticket getSingleTicket(@PathVariable("id") Integer id) {
-        return ticketRepository.findById(id).get();
+    public ResponseEntity<Ticket> getSingleTicket(@PathVariable("id") Integer id) {
+        // Ticket über die ID in der Datenbank finden und in Variable speichern
+       Ticket ticketFromDB = ticketRepository.findById(id).get();
+
+       // ClosedBy user für das ticket-Object setzen
+       User userClosedBy = new User(ticketFromDB.getClosedBy().getId(), ticketFromDB.getClosedBy().getName());
+       ticketFromDB.setClosedBy(userClosedBy);
+        // Creator user für das ticket-Object setzen
+       User userCreator = new User(ticketFromDB.getCreator().getId(), ticketFromDB.getCreator().getName());
+       ticketFromDB.setCreator(userCreator);
+        // Assignee user für das ticket-Object setzen
+        User userAssignee = new User(ticketFromDB.getAssignee().getId(), ticketFromDB.getAssignee().getName());
+        ticketFromDB.setAssignee(userAssignee);
+
+        // Rückgabe des Tickets
+        return new ResponseEntity<>(ticketFromDB, HttpStatus.OK);
     }
 
     @GetMapping("/tickets/delete/{id}")

@@ -11,10 +11,15 @@ public class Ticket {
     private int id;
     private String title;
     private String description;
-    private int creator; // Maybe User instead of int
-    @Column(name = "closed_by")
-    private Integer closedBy; // Maybe User instead of int
-    private int assignee; // Maybe User instead of int
+    @ManyToOne
+    @JoinColumn(name = "creator")
+    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "closed_by") // Hier wird der Fremdschlüssel definiert
+    private User closedBy;
+    @ManyToOne
+    @JoinColumn(name = "assignee")
+    private User assignee;
     private String status;
     private String priority;
     @Column(name = "created_at")
@@ -23,25 +28,25 @@ public class Ticket {
 
     //private Tag tags;
 
-    public Ticket(int id, String title, String description, int creator, Integer closedBy, int asignee, String status, String priority, String createdAt, String deadline) {
+    public Ticket(int id, String title, String description, User creator, User closedBy, User assignee, String status, String priority, String createdAt, String deadline) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.creator = creator;
         this.closedBy = closedBy;
-        this.assignee = asignee;
+        this.assignee = assignee;
         this.status = status;
         this.priority = priority;
         this.createdAt = createdAt;
         this.deadline = deadline;
     }
 
-    public Ticket(String title, String description, int creator, Integer closedBy, int asignee, String status, String priority, String createdAt, String deadline) {
+    public Ticket(String title, String description, User creator, User closedBy, User assignee, String status, String priority, String createdAt, String deadline) {
         this.title = title;
         this.description = description;
         this.creator = creator;
         this.closedBy = closedBy;
-        this.assignee = asignee;
+        this.assignee = assignee;
         this.status = status;
         this.priority = priority;
         this.createdAt = createdAt;
@@ -76,28 +81,28 @@ public class Ticket {
         this.description = description;
     }
 
-    public int getCreator() {
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(int creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 
-    public Integer getClosedBy() {
+    public User getClosedBy() {
         return closedBy;
     }
 
-    public void setClosedBy(Integer closedBy) {
+    public void setClosedBy(User closedBy) {
         this.closedBy = closedBy;
     }
 
-    public int getAssignee() {
+    public User getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(int asignee) {
-        this.assignee = asignee;
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
     }
 
     public String getStatus() {
