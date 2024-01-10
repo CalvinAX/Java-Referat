@@ -1,7 +1,9 @@
 
 export default defineEventHandler(async (event) => {
-
+    console.log('inside server submit');
     const body = await readBody(event)
+    console.log(body);
+    
     try {
         const response = await fetch(`http://localhost:8080/ticket/update`, {
             method: 'POST',

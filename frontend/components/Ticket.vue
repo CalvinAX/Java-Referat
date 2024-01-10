@@ -4,8 +4,8 @@
         <NuxtLink :to="{ path: `/tickets/${result.id}` }">
             <span class="cell">{{ result.title }}</span>
         </NuxtLink>
-        <span class="cell">{{ result.creator }}</span>
-        <span class="cell">{{ result.assignee }}</span>
+        <span class="cell">{{ result.creator.name }}</span>
+        <span class="cell">{{ result.assignee.name }}</span>
         <span class="cell" :class="{
             open: result.status === 'Open',
             inProgress: result.status === 'In Progress',

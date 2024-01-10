@@ -10,16 +10,25 @@
         </div>
         <div class="detail-value">
             <div>Creator</div>
-            <div>{{ result.creator }}</div>
+            <div>{{ result.creator.name }}</div>
         </div>
         <div class="detail-value">
             <div>Closed by</div>
-            <div>{{ result.closedBy ? result.closedBy : "not closed" }}</div>
-
+            <!-- <div>{{ result.closedBy.name ? result.closedBy.name : "not closed" }}</div> -->
+            <span>
+                <select v-model="closedBy" id="assignee" name="assignee">
+                    <option v-for="user in userData" :key="user.id" :value="user.id">{{ user.name }}</option>
+                </select>
+            </span>
         </div>
         <div class="detail-value">
             <div>Assignee</div>
-            <div class="inp"><input v-model="assignee" type="text" :placeholder="result.assignee"></div>
+            <!-- <div class="inp"><input v-model="assignee" type="text" :placeholder="result.assignee.name"></div>^ -->
+            <span>
+                <select v-model="assignee" id="assignee" name="assignee">
+                    <option v-for="user in userData" :key="user.id" :value="user.id">{{ user.name }}</option>
+                </select>
+            </span>
         </div>
         <div class="detail-value">
             <div>Status</div>
@@ -29,7 +38,7 @@
                 closed: result.status === 'Closed'
             }">{{ result.status }}</div> -->
             <span>
-                <select v-model="status" id="priority" name="priority">
+                <select v-model="status" id="status" name="status">
                     <option value="Open" class="open">Open</option>
                     <option value="In Progress" class="inProgress">In Progress</option>
                     <option value="Closed" class="closed">Closed</option>
@@ -70,9 +79,9 @@ const emit = defineEmits(['updated'])
 // v-model
 const title = ref<string | null>(result.value.title);
 const description = ref<string | null>(result.value.description);
-const creator = ref<string | null>(result.value.creator);
-const closedBy = ref<string | null>(result.value.closedBy);
-const assignee = ref<string | null>(result.value.assignee);
+const creator = ref<string | number | null>(result.value.creator.id);
+const closedBy = ref<String | number | null>(result.value.closedBy.id);
+const assignee = ref<string | number | null>(result.value.assignee.id);
 const status = ref<string | null>(result.value.status);
 const priority = ref<string | null>(result.value.priority);
 const createdAt = ref<string | null>(result.value.createdAt);
@@ -101,9 +110,15 @@ watch(submit, async () => {
             id: result.value.id,
             title: title.value,
             description: description.value,
-            creator: creator.value,
-            closedBy: closedBy.value,
-            assignee: assignee.value,
+            creator: {
+                id: creator.value
+            },
+            closedBy: {
+                id: closedBy.value
+            },
+            assignee: {
+                id: assignee.value
+            },
             status: status.value,
             priority: priority.value,
             createdAt: createdAt.value,
@@ -111,6 +126,7 @@ watch(submit, async () => {
         }
 
         console.log('inside submit');
+        console.log(updatedValues.value);
         // try {
         // emit('updated');
 
@@ -125,8 +141,6 @@ watch(submit, async () => {
         const data = await resp.json();
         responseData.value = data;
 
-
-
         // } catch (error: any) {
         //     console.error('Error fetching data:', error.message);
         // }
@@ -136,6 +150,20 @@ watch(responseData, async () => {
     console.log("inside watch")
     console.log(responseData.value)
     emit('updated', responseData.value);
+});
+
+const userData = ref()
+onMounted(async () => {
+    try {
+        const response = await fetch('/api/user/getAll')
+        if (!response.ok) {
+            throw new Error('No available data');
+        }
+        const data = await response.json();
+        userData.value = data;
+    } catch (error: any) {
+        console.error('Error fetching data:', error.message);
+    }
 });
 </script>
 

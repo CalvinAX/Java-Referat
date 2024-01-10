@@ -12,7 +12,7 @@
                 <button @click="handleSignOut()">Logout</button>
                 <NuxtLink :to="'/'">Home</NuxtLink>
             </div>
-            <form v-else @submit.prevent="signIn('credentials', { email, password, callbackUrl: '/' })">
+            <form v-else @submit.prevent="signIn('credentials', { email, password, callbackUrl: '/tickets' })">
                 <div :class="{ 'focused': isFocusedEmail }">
                     <input type="email" v-model="email" name="emailInput" id="emailInput" placeholder="E-Mail-Adresse"
                         @focus="changeBorderColorEmail(true)" @blur="changeBorderColorEmail(false)">
@@ -25,36 +25,6 @@
             </form>
         </section>
     </div>
-    <!-- <div class="login-wrapper">
-        <div class="login-form-wrapper">
-            <div v-if="loggedIn">
-                <p>You're already logged in!</p>
-                <div>
-                    <button @click="handleSignOut()" class="login-form-btn">logout</button>
-                    <button class="login-form-btn" style="margin-left: 12px;">
-                        <NuxtLink :to="'/'" style="color: white; text-decoration: none;">Home</NuxtLink>
-                    </button>
-                </div>
-
-            </div>
-            <form v-else>
-                <div class="login-form-item">
-                    <label for="emailInput" class="login-form-label">Email:</label>
-                    <input v-model="email" type="email" name="emailInput" id="emailInput" placeholder="Email"
-                        class="login-form-input">
-                </div>
-                <div class="login-form-item">
-                    <label for="passwordInput" class="login-form-label">Password:</label>
-                    <input v-model="password" type="password" name="passwordInput" id="passwordInput" placeholder="Password"
-                        class="login-form-input">
-                </div>
-                <div class="login-form-item">
-                    <button class="login-form-btn"
-                        @click.prevent="signIn('credentials', { email, password, callbackUrl: '/' })">login</button>
-                </div>
-            </form>
-        </div>
-    </div> -->
 </template>
 
 <script setup lange="ts">
@@ -74,29 +44,8 @@ const { status, signIn, signOut } = useAuth();
 const loggedIn = computed(() => status.value === 'authenticated');
 
 const handleSignOut = async () => {
-    // try {
-    //     const response = await fetch('/api/logout', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     });
-    //     console.log('######################test');
-    //     if (response.ok) {
-    //         console.log('Logout successful');
-    //     } else {
-    //         console.error('Logout failed');
-    //     }
-    // } catch (error) {
-    //     console.error('Error during logout:', error);
-    // }
-
     await signOut();
 }
-
-// const handleSignIn = async () => {
-//     await signIn('credentials', { email, password, callbackUrl: '/' })
-// }
 
 const isFocusedEmail = ref(false)
 const isFocusedPassword = ref(false)

@@ -46,11 +46,24 @@ const edit = ref(false)
 const submit = ref(false)
 
 const updated = ref(false)
-const updatedValue = ref({})
 
 const handleUpdate = (updateData: any) => {
     // updatedValue.value = updateData
     updated.value = true
+    console.log('data: ', updateData)
+    let updatedValues = {
+        id: updateData.id,
+        title: updateData.title,
+        description: updateData.description,
+        creator: updateData.creato.id,
+        closedBy: updateData.closedBy.id,
+        assignee: updateData.assignee.id,
+        status: updateData.status,
+        priority: updateData.priority,
+        createdAt: updateData.createdAt,
+        deadline: updateData.deadline,
+    }
+
     result.value = updateData
 }
 
@@ -76,7 +89,7 @@ const handleSubmit = () => {
 };
 
 const router = useRouter()
-const handleDelete = async() => {
+const handleDelete = async () => {
     try {
         const response = await fetch(`/api/tickets/delete/${result.value.id}`)
         if (!response.ok) {

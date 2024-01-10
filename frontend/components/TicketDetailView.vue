@@ -11,16 +11,16 @@
                 </div>
                 <div class="detail-value">
                     <div>Creator</div>
-                    <div>{{ result.creator }}</div>
+                    <div>{{ result.creator.name }}</div>
                 </div>
                 <div class="detail-value">
                     <div>Closed by</div>
-                    <div>{{ result.closedBy ? result.closedBy : "not closed" }}</div>
+                    <div>{{ result.closedBy.name ? result.closedBy.name : "not closed" }}</div>
 
                 </div>
                 <div class="detail-value">
                     <div>Assignee</div>
-                    <div>{{ result.assignee }}</div>
+                    <div>{{ result.assignee.name }}</div>
                 </div>
                 <div class="detail-value">
                     <div>Status</div>
@@ -49,7 +49,8 @@
 
 <script setup lang="ts">
 const props = defineProps(['result'])
-const result = ref(props.result);
+// const result = ref(props.result);
+const result = toRef(props, 'result');
 </script>
 
 <style lang="scss">
