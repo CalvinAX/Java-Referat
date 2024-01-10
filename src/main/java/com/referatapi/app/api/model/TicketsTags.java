@@ -17,17 +17,31 @@ public class TicketsTags {
     @JoinColumn(name = "tag_id")
     private Tag tag_id;
 
+    /**
+     *
+     * @param id int
+     * @param ticket_id int
+     * @param tag_id int
+     */
     public TicketsTags(int id, Ticket ticket_id, Tag tag_id) {
         this.id = id;
         this.ticket_id = ticket_id;
         this.tag_id = tag_id;
     }
 
+    /**
+     *
+     * @param ticket_id int
+     * @param tag_id int
+     */
     public TicketsTags(Ticket ticket_id, Tag tag_id) {
         this.ticket_id = ticket_id;
         this.tag_id = tag_id;
     }
 
+    /**
+     * Leerer Konstruktor
+     */
     public TicketsTags() {
 
     }

@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS tags(
 
 CREATE TABLE IF NOT EXISTS tickets_tags(
     id int NOT NULL AUTO_INCREMENT,
-    ticket_id int NOT NULL FOREIGN KEY REFERENCES tickets(id),
-    tag_id int NOT NULL FOREIGN KEY REFERENCES tags(id),
+    ticket_id int NOT NULL,
+    tag_id int NOT NULL,
     PRIMARY KEY (id)
-);
+    );
 
 INSERT INTO users(name, age, email, password) VALUES ("Admin", 1, "admin@email.com", "admin");
 

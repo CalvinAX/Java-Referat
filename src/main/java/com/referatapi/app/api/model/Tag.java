@@ -12,17 +12,31 @@ public class Tag {
     private String name;
     private String color;
 
+    /**
+     * Konstruktor für ein Tag
+     * @param id int
+     * @param name String
+     * @param color String
+     */
     public Tag(int id, String name, String color) {
         this.id = id;
         this.name = name;
         this.color = color;
     }
 
+    /**
+     * Konstruktor für ein Tag
+     * @param name String
+     * @param color String
+     */
     public Tag(String name, String color) {
         this.name = name;
         this.color = color;
     }
 
+    /**
+     * Leerer Konstruktor für ein Tag
+     */
     public Tag() {
 
     }
