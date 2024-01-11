@@ -4,8 +4,6 @@ import com.referatapi.app.api.model.Tag;
 import com.referatapi.app.api.model.Ticket;
 import com.referatapi.app.api.repository.TagRepository;
 import com.referatapi.app.api.repository.UserRepository;
-import com.referatapi.app.service.TagService;
-import com.referatapi.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,12 +19,10 @@ import java.util.Objects;
 @RestController
 public class AuthController {
 
-    private UserService userService;
     private UserRepository userRepository;
 
     @Autowired
-    public AuthController(UserService userService, UserRepository userRepository) {
-        this.userService = userService;
+    public AuthController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -34,11 +30,6 @@ public class AuthController {
     public ResponseEntity<User> createTicket(@RequestBody User reqUser) {
         User dbUser = userRepository.findByEmail(reqUser.getEmail());
         User user;
-        // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-       // String hashedPassword = passwordEncoder.encode(plainPassword);
-       // int hashedPassword = dbUser.getPassword().hashCode();
-        // Integer.toString(hashedPassword)
 
         if(dbUser.getPassword().equals(reqUser.getPassword())){
             user = new User(dbUser.getId(), dbUser.getName());

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TicketsTagsRepository extends JpaRepository<TicketsTags, Integer> {
-    List<TicketsTags> findAllById(Integer id);
     @Query(value = "SELECT * FROM tickets_tags WHERE ticket_id = :id", nativeQuery = true)
     List<TicketsTags> findAllByTicketId(Integer id);
 }

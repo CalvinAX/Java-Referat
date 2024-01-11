@@ -5,8 +5,6 @@ import com.referatapi.app.api.model.TicketsTags;
 import com.referatapi.app.api.repository.TicketRepository;
 import com.referatapi.app.api.repository.TicketsTagsRepository;
 import com.referatapi.app.api.repository.UserRepository;
-import com.referatapi.app.service.TicketService;
-import com.referatapi.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,17 +18,16 @@ import java.util.List;
 @RestController
 public class TicketController {
 
-    private TicketService ticketService;
     private TicketRepository ticketRepository;
     private TicketsTagsRepository ticketsTagsRepository;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository, UserService userService, UserRepository userRepository) {
-        this.ticketService = ticketService;
+    public TicketController(TicketRepository ticketRepository, TicketsTagsRepository ticketsTagsRepository, UserRepository userRepository) {
         this.ticketRepository = ticketRepository;
         this.ticketsTagsRepository = ticketsTagsRepository;
     }
 
+    // Gibt alle Tickets aus
     @GetMapping("/tickets")
     public ResponseEntity<List<Ticket>> getTickets() {
         List<Ticket> ticketsFromDB = ticketRepository.findAll();
@@ -54,6 +51,7 @@ public class TicketController {
         return new ResponseEntity<>(ticketsFromDB, HttpStatus.OK);
     }
 
+    // Filter die Tickets bie ihrem Titel und gibt diese aus
     @GetMapping("/tickets/filter-by-title")
     // RequestParam url encoded ?title=test
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
@@ -77,15 +75,7 @@ public class TicketController {
         return ResponseEntity.ok(filteredTickets);
     }
 
-    /*@GetMapping("/ticket")
-    public Ticket getSingleTicket(@RequestParam Integer id) {
-        Optional<Ticket> ticket = ticketService.getSingleTicket(id);
-        if (ticket.isPresent()) {
-            return (Ticket) ticket.get();
-        }
-        return null;
-    }*/
-
+    // Gibt ein Ticket mit einer bestimmten Id aus
     @GetMapping("/ticket/{id}")
     public ResponseEntity<Ticket> getSingleTicket(@PathVariable("id") Integer id) {
         // Ticket über die ID in der Datenbank finden und in Variable speichern
@@ -105,6 +95,7 @@ public class TicketController {
         return new ResponseEntity<>(ticketFromDB, HttpStatus.OK);
     }
 
+    // Entfernt ein Ticket mit einer bestimmten Id
     @GetMapping("/tickets/delete/{id}")
     public void deleteTickets(@PathVariable("id") Integer id) {
         ticketRepository.deleteById(id);
@@ -115,6 +106,7 @@ public class TicketController {
         return ticketsTagsRepository.findAllByTicketId(id);
     }
 
+    // Erstellt ein neues Ticket
     @PostMapping(value = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
         Ticket toCreate = new Ticket(ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAssignee(), ticket.getStatus(), ticket.getPriority(), ticket.getCreatedAt(), ticket.getDeadline());
@@ -122,6 +114,7 @@ public class TicketController {
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
     }
 
+    // Updated die Daten eines bereits bestehenden Tickets
     @PostMapping(value = "/ticket/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket) {
         Ticket updatedTicket = new Ticket(ticket.getId(), ticket.getTitle(), ticket.getDescription(), ticket.getCreator(), ticket.getClosedBy(), ticket.getAssignee(), ticket.getStatus(), ticket.getPriority(), ticket.getCreatedAt(), ticket.getDeadline());

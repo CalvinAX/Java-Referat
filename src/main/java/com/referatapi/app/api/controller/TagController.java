@@ -2,7 +2,6 @@ package com.referatapi.app.api.controller;
 
 import com.referatapi.app.api.model.Tag;
 import com.referatapi.app.api.repository.TagRepository;
-import com.referatapi.app.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,20 +16,20 @@ import java.util.List;
 @RestController
 public class TagController {
 
-    private TagService tagService;
     private TagRepository tagRepository;
 
     @Autowired
-    public TagController(TagService tagService, TagRepository tagRepository) {
-        this.tagService = tagService;
+    public TagController(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
     }
 
+    // Gibt alle Tags aus
     @GetMapping("/tags")
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }
 
+    // Erstellt einen neuen Tag
     @PostMapping(value = "/tag", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tag> createTag(@RequestBody Tag tag) {
         Tag toCreate = new Tag(tag.getName(), tag.getColor());
@@ -39,6 +38,7 @@ public class TagController {
         return new ResponseEntity<>(toCreate, HttpStatus.CREATED);
     }
 
+    // Updated einen bereits bestehenden Tag
     @PostMapping(value = "/tag/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tag> updateTag(@RequestBody Tag tag) {
         Tag updatedTag = new Tag(tag.getId(), tag.getName(), tag.getColor());
