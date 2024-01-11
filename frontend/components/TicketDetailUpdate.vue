@@ -16,7 +16,7 @@
             <div>Closed by</div>
             <!-- <div>{{ result.closedBy.name ? result.closedBy.name : "not closed" }}</div> -->
             <span>
-                <select v-model="closedBy" id="assignee" name="assignee">
+                <select v-model="closedBy" id="closedBy" name="closedBy">
                     <option v-for="user in userData" :key="user.id" :value="user.id">{{ user.name }}</option>
                 </select>
             </span>
@@ -32,11 +32,6 @@
         </div>
         <div class="detail-value">
             <div>Status</div>
-            <!-- <div class="cell" :class="{
-                open: result.status === 'Open',
-                inProgress: result.status === 'In Progress',
-                closed: result.status === 'Closed'
-            }">{{ result.status }}</div> -->
             <span>
                 <select v-model="status" id="status" name="status">
                     <option value="Open" class="open">Open</option>
@@ -47,8 +42,6 @@
         </div>
         <div class="detail-value">
             <div>Priority</div>
-            <!-- <div class="cell" :class="`${result.priority}`">{{ result.priority }}</div> -->
-            <!-- <label for="cars">Wähle ein Auto:</label> -->
             <span>
                 <select v-model="priority" id="priority" name="priority">
                     <option value="Low" class="Low">Low</option>
@@ -63,7 +56,10 @@
         </div>
         <div class="detail-value">
             <div>Deadline</div>
-            <div class="inp"><input v-model="deadline" type="text" :placeholder="result.deadline"></div>
+            <div class="inp">
+                <input v-model="deadline" type="date" id="deadline" name="deadline" :placeholder="result.deadline">
+            </div>
+
         </div>
     </div>
 </template>

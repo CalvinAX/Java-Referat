@@ -34,8 +34,6 @@
 </template>
   
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
-
 // const route = useRoute()
 // const key = ref(route.params.key)
 

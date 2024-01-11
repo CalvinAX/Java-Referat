@@ -11,7 +11,7 @@
             <div class="sidebar-content">
                 <nav class="sidebar-navigation">
                     <ul>
-                        <NuxtLink :to="localePath('/')" class="sidebar-nav-item">
+                        <NuxtLink :to="localePath('/tickets')" class="sidebar-nav-item">
                             <li>
                                 <div class="icon-text-container"><img src="@/assets/img/icons/ticket.svg"
                                         class="sidebar-icon" />{{ $t('sidebarHome') }}</div>
@@ -32,7 +32,7 @@
                     <LanguageSwitcher />
                     <nav class="sidebar-navigation">
                         <ul>
-                            <button @click="handleSignOut" class="sidebar-nav-item sidebar-logout-btn">
+                            <button class="sidebar-nav-item sidebar-logout-btn">
                                 <li>
                                     <div class="icon-text-container"><img src="@/assets/img/icons/ticket.svg"
                                             class="sidebar-icon" />{{ $t('logout') }}</div>
@@ -47,11 +47,11 @@
 </template>
 
 <script setup>
-const { signOut } = useAuth();
+// const { signOut } = useAuth();
 
-async function handleSignOut() {
-    await signOut();
-}
+// async function handleSignOut() {
+//     await signOut();
+// }
 
 const localePath = useLocalePath();
 

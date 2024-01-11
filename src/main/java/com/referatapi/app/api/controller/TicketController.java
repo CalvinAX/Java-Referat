@@ -55,6 +55,7 @@ public class TicketController {
     }
 
     @GetMapping("/tickets/filter-by-title")
+    // RequestParam url encoded ?title=test
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {
         List<Ticket> filteredTickets = ticketRepository.findByTitleStartingWith(title);
 

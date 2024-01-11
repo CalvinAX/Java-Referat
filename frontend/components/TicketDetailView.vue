@@ -97,13 +97,13 @@ const result = toRef(props, 'result');
         }
 
         .key {
-        font-size: 24px;
-        line-height: 28px;
-        font-weight: 400;
+            font-size: 24px;
+            line-height: 28px;
+            font-weight: 400;
 
-        margin-bottom: 40px;
-        // margin-left: 30px;
-    }
+            margin-bottom: 40px;
+            // margin-left: 30px;
+        }
 
         .cell {
             &.High {

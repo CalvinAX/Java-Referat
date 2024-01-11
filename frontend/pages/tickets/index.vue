@@ -12,7 +12,7 @@
         </div>
         <!-- {{ resultObject }} -->
         <div class="search-options">
-            <div class="inter" @click="searchOptions = !searchOptions">
+            <!-- <div class="inter" @click="searchOptions = !searchOptions">
                 <span>search options</span>
                 <span class="icon" :class="{ active: searchOptions }"><svg height="10px" width="10px" version="1.1"
                         id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -22,7 +22,7 @@
 			c4.194,4.194,4.194,10.987,0,15.175l-81.934,81.939C57.201,184.293,54.454,185.343,51.707,185.343z" />
                     </svg></span>
             </div>
-            <div class="options" v-if="searchOptions"> <!-- :class="{active: searchOptions}-->
+            <div class="options" v-if="searchOptions">
                 <span>
                     <input type="checkbox" v-model="check.title" checked>
                     {{ $t('ticket.title') }}
@@ -51,7 +51,7 @@
                     <input type="checkbox" v-model="check.deadline">
                     {{ $t('ticket.deadline') }}
                 </span>
-            </div>
+            </div> -->
         </div>
         <!-- {{ search }}
         <br>

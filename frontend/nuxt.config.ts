@@ -3,7 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/i18n',
-    '@sidebase/nuxt-auth',
     '@nuxt/image',
     '@nuxtjs/color-mode',
   ],

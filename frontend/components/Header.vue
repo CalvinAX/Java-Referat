@@ -4,7 +4,11 @@
     <div class="comp-header">
         <header>
             <div class="burger" @click="emitToggleEvent">
-                <img src="@/assets/img/icons/burger-menu.svg" alt="Menu">
+                <!-- <img src="@/assets/img/icons/burger-menu.svg" alt="Menu"> -->
+                <svg xmlns="http://www.w3.org/2000/svg" height="30" width="28" fill="white" viewBox="0 0 448 512">
+                    <path
+                        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                </svg>
                 <!-- <svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 185.343 185.343" xml:space="preserve">
                     <g>
@@ -17,9 +21,9 @@
                 </svg> -->
             </div>
             <div class="logo">
-                <NuxtLink to="/">
+                <!-- <NuxtLink to="/">
                     <img src="@/assets/img/sc_logo.png" alt="Logo">
-                </NuxtLink>
+                </NuxtLink> -->
             </div>
             <!-- <button id="signout" @click="">Sign out</button> -->
         </header>
@@ -40,8 +44,10 @@ const emitToggleEvent = () => {
 .comp-header {
     header {
         // background-color: black; // rgb(45, 89, 90)
-        background-color: $brand-color;
+        background-color: #404344;
         background-color: #ceeaf0;
+        background-color: $bg-dark-100;
+        background-color: #2c3238;
         padding: 5px 20px;
         display: flex;
         justify-content: flex-start;
