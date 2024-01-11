@@ -45,13 +45,10 @@ public class TicketController {
                 ticket.setAssignee(user);
             }
         }
-
-        // System.out.println("User: " +  user);
-        // System.out.println("Ticket: " +  ticketsFromDB);
         return new ResponseEntity<>(ticketsFromDB, HttpStatus.OK);
     }
 
-    // Filter die Tickets bie ihrem Titel und gibt diese aus
+    // Filter die Tickets nach ihrem Titel und gibt diese aus
     @GetMapping("/tickets/filter-by-title")
     // RequestParam url encoded ?title=test
     public ResponseEntity<List<Ticket>> getTicketsByName(@RequestParam String title) {

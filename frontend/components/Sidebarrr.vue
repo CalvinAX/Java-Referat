@@ -137,6 +137,7 @@ nav.sidebar-comp {
 
                 &:hover {
                     background-color: $brand-color; // rgb(123, 64, 182)
+                    background-color: #2c3238;
                 }
             }
         }
